@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: stg_flights
+    description: "The staging layer for flight data from raw source."
+    columns:
+      - name: transaction_id
+        description: "Unique identifier for each flight transaction."
+        tests:
+          - not_null
+          - unique
+      - name: flight_date
+        description: "Date of the flight."
+        tests:
+          - not_null
+      - name: airline_code
+        description: "Code of the airline operating the flight."
+        tests:
+          - not_null
+      - name: airline_name
+        description: "Name of the airline."
+        tests:
+          - not_null
+      - name: flight_number
+        description: "Flight number for the flight."
+        tests:
+          - not_null
+      - name: origin_airport_code
+        description: "Airport code of the origin airport."
+        tests:
+          - not_null
+      - name: origin_airport_name
+        description: "Airport name of the origin airport."
+        tests:
+          - not_null
+      - name: dest_airport_code
+        description: "Airport code of the destination airport."
+        tests:
+          - not_null
+      - name: dest_airport_name
+        description: "Airport name of the destination airport."
+        tests:
+          - not_null
+
+# only basic tests have been run, handling of null values being done in intermediate layer

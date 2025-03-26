@@ -1,0 +1,11 @@
+
+    
+    
+
+
+
+select DEPDELAYGT15
+from RECRUITMENT_DB.CANDIDATE_00183.fact_flights
+where DEPDELAYGT15 is null
+
+

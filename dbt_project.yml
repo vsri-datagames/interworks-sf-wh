@@ -1,0 +1,33 @@
+name: "interworks_challenge"
+version: "1.0.0"
+config-version: 2
+
+profile: "interworks_challenge"
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  interworks_challenge:
+    staging:  # Staging layer models
+      +schema: "CANDIDATE_00183" # Direct schema name
+      +materialized: table       
+    intermediate:  # Intermediate layer models
+      +schema: "CANDIDATE_00183"  # Direct schema name
+      +materialized: table 
+    marts:  # Final mart layer models
+      +schema: "CANDIDATE_00183"  
+      +materialized: table
+    +required_docs: true  # Enables documentation generation for models
+    +severity: warn  # Warnings won't stop execution but will be stored
+    +store_failures: true  # Store both warnings and failures
+    warn_error: false  # Keep warnings as warnings (don’t convert to errors)

@@ -1,0 +1,185 @@
+version: 2
+
+models:
+  - name: fact_flights
+    description: "This model contains final cleaned flight data with additional columns"
+    columns:
+      - name: TRANSACTIONID
+        description: "Primary key for the flight transaction"
+        tests:
+          - unique
+          - not_null
+          
+      - name: FLIGHTDATE
+        description: "The date of the flight"
+        tests:
+          - not_null
+
+      - name: AIRLINECODE
+        description: "The airline code (foreign key reference to int_airline)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_airline')  # Ensures the origin_airport_code exists in the int_airport table
+              field: AIRLINECODE         
+
+      - name: TAILNUMBER
+        description: "The tail number of the aircraft"
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: FLIGHTNUMBER
+        description: "The flight number"
+        tests:
+          - not_null
+
+      - name: ORIGINAIRPORTCODE
+        description: "The airport code of the origin airport (foreign key reference to int_airport)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_airport')  # Ensures the origin_airport_code exists in the int_airport table
+              field: AIRPORTCODE
+
+      - name: DESTAIRPORTCODE
+        description: "The airport code of the destination airport (foreign key reference to int_airport)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_airport')  # Ensures the dest_airport_code exists in the int_airport table
+              field: AIRPORTCODE
+
+      - name: CRSDEPTIME
+        description: "The scheduled departure time"
+        tests:
+          - not_null:
+              severity: warn  # Warning if there are any null values
+
+      - name: DEPTIME
+        description: "The actual departure time"
+        tests:
+          - not_null:
+              severity: warn  # Warning if there are any null values
+
+      - name: CRSARRTIME
+        description: "The scheduled arrival time"
+        tests:
+          - not_null:
+              severity: warn  # Warning if there are any null values
+
+      - name: ARRTIME
+        description: "The actual arrival time"
+        tests:
+          - not_null:
+              severity: warn  # Warning if there are any null values
+
+      - name: WHEELSOFF
+        description: "Time at wheels off ground for departure"
+        tests:
+          - not_null:
+              severity: warn  # Warning if there are any null values
+
+      - name: WHEELSON
+        description: "Time at wheels touch ground for arrival"
+        tests:
+          - not_null:
+              severity: warn  # Warning if there are any null values   
+
+      - name: TAXIOUT
+        description: "Taxi time in minutes for departure"
+        tests:
+          - not_null:
+              severity: warn  # Warning if there are any null values    
+
+      - name: TAXIIN
+        description: "Taxi time in minutes for arrival"
+        tests:
+          - not_null:
+              severity: warn  # Warning if there are any null values                
+
+      - name: DEPDELAY
+        description: "The departure delay in minutes"
+
+      - name: DEPDELAYGT15
+        description: "Flag for departure delay greater than 15 minutes"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0,1]       
+
+      - name: ARRDELAY
+        description: "The arrival delay in minutes"
+
+      - name: CRSLAPSEDTIME
+        description: "Scheduled lapsed time in minutes- overall flight time"
+        tests:
+          - not_null:
+              severity: warn  # Warning if there are any null values         
+
+      - name: ACTUALLAPSEDTIME
+        description: "Actual lapsed time in minutes - overall flight time"
+        tests:
+          - not_null:
+              severity: warn  # Warning if there are any null values    
+      
+      - name: NEXTDAYARR
+        description: "Flag indicating if the flight arrives the next day"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0,1]                           
+
+      - name: CANCELLED
+        description: "Flag indicating if the flight was cancelled"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE]  # Only TRUE or FALSE should be accepted
+
+      - name: DIVERTED
+        description: "Flag indicating if the flight was diverted"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE]  # Only TRUE or FALSE should be accepted
+
+      - name: DISTANCE
+        description: "The distance of the flight"
+        tests:
+          - not_null        
+
+      - name: DISTANCEGROUP
+        description: "Grouped distance in 100-mile increments"
+        tests:
+          - not_null
+
+      - name: CREATEDAT
+        description: "Timestamp when the record was created"
+        tests:
+          - not_null
+
+      - name: UPDATEDAT
+        description: "Timestamp when the record was last updated"
+        tests:
+          - not_null
+
+      - name: LOADDATE
+        description: "Date when the data was loaded"
+        tests:
+          - not_null
+
+      - name: ISACTIVE
+        description: "Flag indicating if the record is active"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE]  # Only TRUE or FALSE should be accepted
+
+      - name: PROCESSINGSTATUS
+        description: "The status of the data processing"
+        tests:
+          - not_null
+
+      - name: ERRORMESSAGE
+        description: "Any error message related to the record"

@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: dim_airport
+    description: "This model contains a transformed list of airports, including the airport ID, code, name, city, and state information."
+    columns:
+      - name: AIRPORTID
+        description: "Unique identifier for each airport."
+        tests:
+          - unique
+          - not_null
+
+      - name: AIRPORTCODE
+        description: "The code for the airport, used for identification."
+        tests:
+          - not_null
+
+      - name: AIRPORTNAME
+        description: "The name of the airport, split from the original data."
+        tests:
+          - not_null
+
+      - name: CITYNAME
+        description: "The city where the airport is located."
+        tests:
+          - not_null
+
+      - name: STATECODE
+        description: "The state code where the airport is located."
+        tests:
+          - not_null
+
+      - name: STATENAME
+        description: "The name of the state where the airport is located."
+        tests:
+          - not_null

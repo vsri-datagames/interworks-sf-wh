@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: int_airport
+    description: "Intermediate dim table for airports, linking to cities."
+    columns:
+      - name: airport_id # Primary key
+        description: "Unique identifier for the airport."
+        tests:
+          - unique
+          - not_null
+
+      - name: airport_code # Natural Key
+        description: "Unique airport code."
+        tests:
+          - unique
+          - not_null
+
+      - name: airport_name
+        description: "Name of the airport."
+        tests:
+          - not_null
+
+      - name: city_name
+        description: "Name of the city."
+        tests:
+          - not_null
+
+      - name: state_code
+        description: "State code where the city is located."
+        tests:
+          - not_null
+          
+      - name: state_name
+        description: "Full name of the state."
+        tests:
+          - not_null

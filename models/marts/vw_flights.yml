@@ -1,0 +1,96 @@
+version: 2
+
+models:
+  - name: vw_flights
+    description: "This view contains detailed flight information including airline, airport, city, and state data."
+    columns:
+      - name: TRANSACTIONID
+        description: "Unique identifier for each flight transaction."
+        tests:
+          - not_null
+          - unique
+      
+      - name: FLIGHTNUMBER
+        description: "Flight number associated with the transaction."
+        tests:
+          - not_null
+          
+      - name: FLIGHTDATE
+        description: "The date the flight took place."
+        tests:
+          - not_null
+          
+      - name: AIRLINECODE
+        description: "Code representing the airline."
+        tests:
+          - not_null
+          
+      - name: AIRLINENAME
+        description: "Name of the airline."
+        tests:
+          - not_null
+          
+      - name: ORIGINAIRPORTCODE
+        description: "Airport code for the origin airport."
+        tests:
+          - not_null
+          
+      - name: ORIGAIRPORTNAME
+        description: "Name of the origin airport."
+        tests:
+          - not_null
+          
+      - name: ORIGCITYNAME
+        description: "City name of the origin airport."
+        tests:
+          - not_null
+          
+      - name: ORIGSTATECODE
+        description: "State code of the origin airport."
+        tests:
+          - not_null
+          
+      - name: ORIGSTATENAME
+        description: "State name of the origin airport."
+        tests:
+          - not_null
+          
+      - name: DESTAIRPORTCODE
+        description: "Airport code for the destination airport."
+        tests:
+          - not_null
+          
+      - name: DESTAIRPORTNAME
+        description: "Name of the destination airport."
+        tests:
+          - not_null
+          
+      - name: DESTCITYNAME
+        description: "City name of the destination airport."
+        tests:
+          - not_null
+          
+      - name: DESTSTATECODE
+        description: "State code of the destination airport."
+        tests:
+          - not_null
+          
+      - name: DESTSTATENAME
+        description: "State name of the destination airport."
+        tests:
+          - not_null
+          
+      - name: DISTANCEGROUP
+        description: "Distance group categorizing the flight."
+        tests:
+          - not_null
+          
+      - name: DEPDELAYGT15
+        description: "Indicator of departure delay greater than 15 minutes."
+        tests:
+          - not_null
+          
+      - name: NEXTDAYARR
+        description: "Indicates whether the flight arrived the next day."
+        tests:
+          - not_null

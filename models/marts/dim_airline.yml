@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: dim_airline
+    description: "This model contains a transformed list of airlines, including the airline code and name."
+    columns:
+      - name: AIRLINECODE
+        description: "The unique code for each airline."
+        tests:
+          - not_null
+          - unique
+
+      - name: AIRLINENAME
+        description: "The name of the airline, split from the original data."
+        tests:
+          - not_null

@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: int_airline
+    description: "Table containing distinct airline codes and names"
+    columns:
+      - name: airline_code
+        description: "The unique code representing an airline"
+        tests:
+          - not_null
+          - unique
+      - name: airline_name
+        description: "The name of the airline"
+        tests:
+          - not_null
+          - unique

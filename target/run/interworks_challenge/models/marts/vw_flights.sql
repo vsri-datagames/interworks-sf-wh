@@ -1,0 +1,80 @@
+
+  create or replace   view RECRUITMENT_DB.CANDIDATE_00183.vw_flights
+  
+   as (
+    
+
+WITH mart_flights AS (
+    -- Extracting flight details
+    SELECT 
+        TRANSACTIONID,
+        FLIGHTNUMBER,
+        FLIGHTDATE,
+        AIRLINECODE,
+        ORIGINAIRPORTCODE,
+        DESTAIRPORTCODE,
+        DISTANCEGROUP,
+        DEPDELAYGT15,
+        NEXTDAYARR
+    FROM RECRUITMENT_DB.CANDIDATE_00183.fact_flights
+),
+
+fact_with_airline AS (
+    -- Adding airline name
+    SELECT 
+        f.*,
+        a.AIRLINENAME
+    FROM mart_flights f
+    LEFT JOIN RECRUITMENT_DB.CANDIDATE_00183.dim_airline a 
+        ON f.AIRLINECODE = a.AIRLINECODE
+),
+
+final AS (
+    -- Adding airport names, city names, and state codes (origin & destination)
+    SELECT 
+        fact.*,
+        o.AIRPORTNAME AS ORIGAIRPORTNAME,
+        d.AIRPORTNAME AS DESTAIRPORTNAME,
+        ocity.CITYNAME AS ORIGCITYNAME,
+        ostate.STATECODE AS ORIGSTATECODE,
+        dcity.CITYNAME AS DESTCITYNAME,
+        dstate.STATECODE AS DESTSTATECODE,
+        ostate.STATENAME AS ORIGSTATENAME, 
+        dstate.STATENAME AS DESTSTATENAME  
+    FROM fact_with_airline fact
+    LEFT JOIN RECRUITMENT_DB.CANDIDATE_00183.dim_airport o
+        ON fact.ORIGINAIRPORTCODE = o.AIRPORTCODE
+    LEFT JOIN RECRUITMENT_DB.CANDIDATE_00183.dim_airport d 
+        ON fact.DESTAIRPORTCODE = d.AIRPORTCODE
+    LEFT JOIN RECRUITMENT_DB.CANDIDATE_00183.dim_airport ocity
+        ON fact.ORIGINAIRPORTCODE = ocity.AIRPORTCODE
+    LEFT JOIN RECRUITMENT_DB.CANDIDATE_00183.dim_airport ostate
+        ON fact.ORIGINAIRPORTCODE = ostate.AIRPORTCODE
+    LEFT JOIN RECRUITMENT_DB.CANDIDATE_00183.dim_airport dcity
+        ON fact.DESTAIRPORTCODE = dcity.AIRPORTCODE
+    LEFT JOIN RECRUITMENT_DB.CANDIDATE_00183.dim_airport dstate
+        ON fact.DESTAIRPORTCODE = dstate.AIRPORTCODE
+)
+
+SELECT 
+    TRANSACTIONID,
+    FLIGHTNUMBER,
+    FLIGHTDATE,
+    AIRLINECODE,
+    AIRLINENAME,
+    ORIGINAIRPORTCODE,
+    ORIGAIRPORTNAME,
+    ORIGCITYNAME,
+    ORIGSTATECODE,
+    ORIGSTATENAME, 
+    DESTAIRPORTCODE,
+    DESTAIRPORTNAME,
+    DESTCITYNAME,
+    DESTSTATECODE,
+    DESTSTATENAME, 
+    DISTANCEGROUP,
+    DEPDELAYGT15,
+    NEXTDAYARR 
+FROM final
+  );
+

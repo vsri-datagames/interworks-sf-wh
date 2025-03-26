@@ -1,0 +1,13 @@
+interworks_challenge:  
+  outputs:
+    dev:
+      type: snowflake
+      account: "TTA01438"  
+      user: "CANDIDATE_00183"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "CANDIDATE_00183"
+      database: "RECRUITMENT_DB"
+      warehouse: "WH_CANDIDATE_00183" 
+      schema: "CANDIDATE_00183"  
+      threads: 4
+  target: dev

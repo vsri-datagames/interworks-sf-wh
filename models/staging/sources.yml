@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: recruitment_db  
+    description: "Recruitment database containing candidate data"
+    database: RECRUITMENT_DB  
+    schema: CANDIDATE_00183  
+    tables:
+      - name: raw_flights  
+        description: "Raw flight data"
+      - name: city_state_lookup
+        description: "Reference table to deal with null state values"  
+
+

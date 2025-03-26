@@ -1,0 +1,116 @@
+version: 2
+
+models:
+  - name: int_flights
+    description: "This model contains processed and cleaned flight data"
+    columns:
+      - name: transaction_id
+        description: "Primary key for the flight transaction"
+        tests:
+          - unique
+          - not_null
+          
+      - name: flight_date
+        description: "The date of the flight"
+        tests:
+          - not_null
+
+      - name: airline_code
+        description: "The airline code (foreign key reference to int_airline)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('int_airline')  # Ensures the airline_code exists in the int_airline table
+              field: airline_code
+
+      - name: tail_number
+        description: "The tail number of the aircraft"
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: flight_number
+        description: "The flight number"
+        tests:
+          - not_null
+
+      - name: origin_airport_code
+        description: "The airport code of the origin airport (foreign key reference to int_airport)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('int_airport')  # Ensures the origin_airport_code exists in the int_airport table
+              field: airport_code
+
+      - name: dest_airport_code
+        description: "The airport code of the destination airport (foreign key reference to int_airport)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('int_airport')  # Ensures the dest_airport_code exists in the int_airport table
+              field: airport_code
+
+      - name: crs_dep_time
+        description: "The scheduled departure time"
+        tests:
+          - not_null:
+              severity: warn  # Warning if there are any null values
+
+      - name: crs_arr_time
+        description: "The scheduled arrival time"
+        tests:
+          - not_null:
+              severity: warn  # Warning if there are any null values
+
+      - name: dep_delay
+        description: "The departure delay in minutes"
+
+      - name: arr_delay
+        description: "The arrival delay in minutes"
+
+      - name: cancelled_boolean
+        description: "Flag indicating if the flight was cancelled"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE]  # Only TRUE or FALSE should be accepted
+
+      - name: diverted_boolean
+        description: "Flag indicating if the flight was diverted"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE]  # Only TRUE or FALSE should be accepted
+
+      - name: distance
+        description: "The distance of the flight"
+
+      - name: created_at
+        description: "Timestamp when the record was created"
+        tests:
+          - not_null
+
+      - name: updated_at
+        description: "Timestamp when the record was last updated"
+        tests:
+          - not_null
+
+      - name: load_date
+        description: "Date when the data was loaded"
+        tests:
+          - not_null
+
+      - name: is_active
+        description: "Flag indicating if the record is active"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE]  # Only TRUE or FALSE should be accepted
+
+      - name: processing_status
+        description: "The status of the data processing"
+        tests:
+          - not_null
+
+      - name: error_message
+        description: "Any error message related to the record"
