@@ -12,8 +12,7 @@
         city_name AS CITYNAME,
         state_code AS STATECODE, 
         state_name AS STATENAME
-    FROM int_airport
-)
+    FROM  RECRUITMENT_DB.CANDIDATE_00183.int_airport
 
 SELECT * FROM mart_airport
         );

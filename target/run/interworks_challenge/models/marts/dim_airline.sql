@@ -8,7 +8,7 @@
     SELECT 
         airline_code as AIRLINECODE,
         SPLIT_PART(airline_name, ':', 1) AS AIRLINENAME
-    FROM int_airline
+    FROM RECRUITMENT_DB.CANDIDATE_00183.int_airline
 )
 
 SELECT * FROM mart_airline

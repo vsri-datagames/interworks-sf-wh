@@ -8,7 +8,7 @@
     SELECT DISTINCT 
         airline_code, 
         airline_name
-    FROM stg_flights
+    FROM RECRUITMENT_DB.CANDIDATE_00183.stg_flights
 )
 
 SELECT * FROM distinct_airline

@@ -47,7 +47,7 @@ WITH int_flights AS (
         is_active,  
         processing_status,  
         error_message 
-    FROM stg_flights
+    FROM  {{ ref('stg_flights') }}
     WHERE 
         is_active = TRUE  -- Ensure the record is active
         AND processing_status = 'processed'  -- Ensure the record is successfully processed
